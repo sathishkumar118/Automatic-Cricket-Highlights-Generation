@@ -1,12 +1,11 @@
 
 # coding: utf-8
-
+# Final runnable code which takes the full match video as input and gives as highlights as output
 # In[2]:
 
 
 import time
 start = time.time()
-import moviepy.editor as mp
 import cv2
 import numpy as np
 import pytesseract
@@ -93,7 +92,8 @@ else:
 
 
 # In[20]:
-
+# importing moviepy editor to concatenate the video clips
+import moviepy.editor as mp
 
 match_name="3_BBL_Trim"
 source="C:/FYP/Videos/"+match_name+".mp4"
