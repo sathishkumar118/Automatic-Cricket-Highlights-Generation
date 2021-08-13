@@ -1,0 +1,95 @@
+% Chapter 2
+
+\chapter{RELATED WORK} % Chapter Title in ALL CAPSacs
+Video browsing technologies developed in recent years are generally divided into two categories: video summarization \cite{1038180,1246738,609414} and video skimming \cite{609414}. Video summarization shows a static capsule representation of a long video in terms of a set of key frames, whereas video skimming constitutes a dynamic representation that generates a shorter abstraction of a long video. Video summarization \cite{Ma:2002:UAM:641007.641116, 1640790, DBLP:journals/corr/ZhangCSG16a} aims at producing short videos or keyframes by eliminating redundancy either at signal level or in semantic content. Another sub-area of video summarization involving multimodal video analysis such as movie trailer generation \cite{6527322, Irie:2010:ATG:1873951.1874092}.
+
+Two main issues in video browsing technologies include 1) how to extract important contents and 2) how to distribute those important contents into limited display duration or space. One of the possible solutions to the first issue is highlight extraction. The extracted highlight captures most of the important or exciting contents in video and also provides a kind of dynamic video abstraction.
+
+A lot of research has been done for analyzing sports videos\cite{8491305,7479531}. The major aim of sports video analysis is to provide the assistance training. Many works in highlight generation from sports videos is done by players action analysis and tracking the objects of interest throughout the game. Different approaches are proposed to extract the highlights.
+
+This chapter gives a survey of the possible approaches to summarize the sports video (Cricket, Soccer, Baseball, Tennis, Golf) which is a highlights. We proposed to work with cricket video highlights extraction and we wanted to adopt a hybrid method based on events and excitement. The output should be highlighted events from the given input video. Thus this survey helped us to analyze the various existing approaches and decide on the one which would best cater for our Cricket Highlights Extraction.
+\section{Approaches for Highlights Detection}
+\subsection{Shows only Replays}
+Replays are the repetitive video shots that shows the key events in the video.
+
+In \cite{7479531}, the replays are detected and extracted to form highlights. A replay segment is considered as a clip sandwiched in gradual transitions and absence of score-caption. The proposed method is robust to broadcasters variation, sports category, score-caption design, camera variations, replay speed, and logo design, size, and placement. The proposed algorithm does not rely on logo template recognition for replay detection, which makes it computationally efficient. The proposed system consists of two steps ie gradual transition and scorecard detection.
+
+In \cite{4036924}, the proposed highlight summarization system was based on replays because the replay is a reliable clue to the highlight and the features is not limited in a specific kind of sports game. First the replay clips in the sports video are extracted as the highlight candidates. Then the highlight candidates are ranked based on the audio energy arousal level and motion activity.  Firstly, event-replay structure is proposed. Secondly a novel highlight model was proposed considering the inter-relation of event replays.
+\subsection{Shows only Important events}
+The important events in the cricket are the video shot segments containing fours, sixes and wickets and also the segments containing crowd cheers and commentators excitement. These events are identified by using scorecard recognition\cite{7479531,4756096}, event detection. The excitement detection\cite{8491305,7101847} is used to identify key events and milestones. The excitement in the match is done by analyzing the commentators's excitement in voice and crowd's cheer.
+\section{Approaches for Replay Detection}
+
+\subsection{Using Logo Transition}
+A replay in a broadcast sports video is often accompanied with a pair of logo transitions which sweep off at the beginning and the end of it. By using logo transition detection, boundaries of the replay are calculated.
+
+In \cite{4036924} the logo template was generated automatically from the video. The sweeping effect frames is detected and classified them into several clusters. Then the logo cluster is selected according to a judging criterion. The mean image of the frames in the logo cluster is set to be the logo template.Then all the logos are detected with the logo template. The distance between logo template and an arbitrary frame in the video was computed. If the distance is smaller than a pre-defined threshold, it is recognized as a logo.After all logos are detected and are paired as the boundaries of replays and the wrong logos are eliminated. The replay detection approach proposed above can detect replays in sports video effectively  which can be utilized to summarize highlight.
+ 
+
+\subsection{Using Gradual Motion}
+In \cite{7479531}, replay segments in sports videos include various types of gradual transitions such as dissolves, wipes, fade-in/out etc. It has been observed that replays in sports videos are sandwiched between gradual transitions frames and do not contains scorecards. The characteristics of multiple gradual transitions are therefore used to identify the boundaries of a replay regment by detecting logo frames. Separation between two successive gradual transitions (in number of frames) is used to generate a candidate replay segment. Then a segment between two successive gradual transitions is labeled as a candidate replay segment if it satisfies the condition specified in \ref{GradTrans}.
+\begin{equation}
+\label{GradTrans}
+2N_{GT}+N_{RL}\leq E_{(i+1)}-S_{i}\leq 2N_{GT}+N_{RU}
+\end{equation}
+where N\textsubscript{RL} and N\textsubscript{RU} represent lower and upper limits of a replay duration (in number of frames)
+
+\subsection{Using Scorecard Detection}
+The scorecards are displayed at fixed locations in almost all sports videos. It has been observed through watching extensive amount of sports videos that replay segments do not contain scorecard. Therefore, scorecards are used for replay detection. Input video segments are analyzed to extract scorecards. The presence/absence of scorecard is used to detect replay and live frames.\\In \cite{7479531}, the preprocessing stage transforms the candidate replay segments into a sequence of grayscale images. To reduce computational cost, sequence (of grayscale images) is down-sampled by a factor of 2. Each image is processed for illumination adjustment using the top hat filtering. The top hat filter performs morphological opening with a structuring element SE followed by subtraction from the original image. These are expressed in \ref{ScorecardPreprocess1} and \ref{ScorecardPreprocess2}.
+\begin{equation}
+\label{ScorecardPreprocess1}
+I^{(i)}_{thin}=I^{(i)}\bigotimes SE
+\end{equation}
+\begin{equation}
+\label{ScorecardPreprocess2}
+I^{(i)}_{adj}=I^{(i)}-I^{(i)}_{thin}
+\end{equation}
+Where I\textsubscript{thin}\textsuperscript{(i)}, I\textsubscript{adj}\textsuperscript{(i)},I\textsuperscript{(i)},presents the thinned image, illumination adjusted image, and input grayscale image respectively, if ith frame. SE is the disk shaped structuring element of size $\alpha$ , and $\bigotimes$ is thinning operator. \\A sliding window of length L frames is used to compute temporal running average sequence expressed in \ref{ScorecardPreprocess3}.
+\begin{equation}
+\label{ScorecardPreprocess3}
+I^{(i)}_{avg}=I^{(i-1)}_{avg}-I^{(i-1)}+I^{(i+1)}/L
+\end{equation}
+Where I\textsubscript{adj}\textsuperscript{(i)}\textsubscript{avg} represents the average if ith frame.\\
+Then image binarization, morphological thinning is done. OCR is applied on the thinned image. The absence of the scorecard is labelled as the replay frames.
+\section{Approaches for Key Event Uetection}
+\subsection{Using Scorecard Recognition}
+Highlights based on scorecard recognition in \cite{6731340}, \cite{canalysis} is done using textual information extraction method. This textual information is extracted from each frame by first detecting scorecard, then converting the text on this score into a sentence like structure based on OCR. If-then rules are used to extract the events associated with the excitement clips. Once textual information is at our disposal, difference in score and wickets is detected to get information about 4, 6 or fall of a wicket. This forms the basis of event detection. If the difference for the runs-caption in the successive frames of the excitement clip is 6, 5, 4, 3, 2, 1, the event associated with the corresponding excitement clip is six-runs, five runs, four-runs, three-runs, two-runs, one-run respectively. If the difference for the wicket-caption in the successive frames is 1, the event associated with the corresponding excitement clip is wicket. If the difference for the runs-caption and wicket-caption is 0, the event associated is no-run/no-wicket (NRNW) event.Now those frames are included in which event has occurred and combined together to generate highlights. 
+We apply caption recognition model to every frame in the excitement clip.
+\subsection{Using Excitement Detection}
+The excitement detection is done by using the commentator\textquotesingle s voice tone analysis or identifying the emotion in the commentator\textquotesingle s speech or using the signal processing.
+\cite{8491305} extracts the highlights using commentator excitement. This is detected by a combination of an audio classiﬁer and a salient keywords extractor applied after a speech-to-text component. Excitement in the tone is identified using the trained SVM classifier as in \cite{8491305}. \cite{4756096} uses signal processing techniques like audio energy rate, zero crossing rate to identify the excitement in the audio in the sports video.
+\section{Approaches for Event Classification}
+\subsection{Using CNN}
+CNN have outperformed most of the traditional computer vision algorithms for tasks such as image classification and object detection. A CNN is a combination of a feature extractor and a classifier. The convolutional layers of the CNN are the feature extractors where it learns the representations automatically from the input data. The early layers in the CNN learn more generic features such as shapes, edges, and colour blobs, while the deeper layers learn features more specific to that contained in the original dataset. The last fully connected layers of the CNN use these learned features and classify the data into one of the classes. \\\cite{DBLP:journals/corr/abs-1809-06217} uses CNN for identifying events in cricket videos based on detecting the pose of the umpire. System proposed in\cite{DBLP:journals/corr/abs-1809-06217} is built in two phases. The first phase involves designing classifiers to distinguish images containing an umpire versus no umpire, and also detect the pose of the umpire, if present. During the training stage, the input images are pre-processed by performing intensity normalization on the pixel values and resizing to 299 by 299 pixels for the Inception V3 network and 224 by 224 pixels for the VGG19 network. The features are extracted from different layers of the pretrained networks. Finally, these features are used to train a linear SVM classifier to output the class label of the predicted pose of the umpire. The second phase involves detecting the events from the cricket videos using the saved classifier models, and generating the summary of the videos.
+
+\subsection{Using SVM}
+In \cite{DBLP:journals/corr/abs-1809-06217},a linear support vector machine (SVM) classifier is trained on the extracted features for detecting the pose of the umpire.
+ In \cite{8491305}, Cheer samples from 2016 Masters and Wimbledon replay videos as well as examples of cheer obtained from YouTube were used in order to train the audio cheer classiﬁer using a linear SVM on top of deep features. For negative examples, we used audio tracks containing regular speech, music, and other non-cheer sounds   found in Masters and Wimbledon replays.
+ \subsection{Using BBN}
+Event-based highlights use more semantically meaningful content than the excitement-based highlights and its accuracy depends upon the richness of the semantic concepts. The main challenge lies in the
+amount of variation in low-level visual and auditory features,
+and game-specific rules. In order to adequately and flexibly interpret its meaning, they bridged the semantic gap between richness of user semantics and the simplicity of available low-level features. To address this issue, they have proposed BBN in \cite{7101847} to link low-level features with high-level semantic concepts. BBN consumes much time than CNN but it is effective for detecting the moving events in a sequence of frames when compared to CNN.
+\section{Approaches for Excitement detection}
+\subsection{Using Speech to Text Synthesis}
+In \cite{8491305} excitement score is computed based on audio tone analysis and speech to text analysis.
+ While tone can say a lot about how excited the commentator is while describing a shot, excitement level can also be gauged from another source, that is, the expressions used. We created a dictionary of 60 expressions (words and phrases) indicative of excitement (e.g. “great shot”, “fantastic”) and assign to each of them excitement scores ranging from 0 and 1. A speech to text service was used to obtain a transcript of commentators’ speech and create an excitement score as an aggregate of scores of individual expressions in it. 
+\subsection{Using Voice tone Analysis}
+In \cite{8491305}, the excitement of the commentator's tone is identified by employing the deep SoundNet audio features. A linear SVM classiﬁer was used for modeling. For negative examples, audio tracks containing regular speech, music, regular cheer (without commentator excitement) and other kinds of sounds which do not have an excited commentator were used. In total, the training set for audio based commentator excitement recognition consisted of 131 positive and 217 negative samples. The leave-one-out cross validation accuracy on the training set was 81.3\%.
+\subsection{Using Likelihood Model}
+ In \cite{1632043}, the 14 audio features (i.e., ZCR, pitch period, and 12 MFCCs) extracted from each audio frame constitute a 14-dimensional (14-D) feature vector. 
+ Their attempt was to measure the likelihood of a group of feature vectors (e.g., audio clip) belonging to a certain audio types.They have deﬁned ﬁve audio types for baseball games: 1)ball hit, 2)cheering, 3) music, 4) speech, and 5) speech with music background. Among these audio types, the two types, music and speech with music background, usually appear in the commercial segments, while the other three types usually appear in running commentary and exciting events. They have modelled each audio type using a GMM to describe the distribution of its feature vectors.  
+\subsection{Using Signal Processing}
+During exciting events, spectator’s cheer and commentator’s speech becomes louder and more rapid. In \cite{4756096,canalysis}, two popular audio content analysis techniques- short-time audio energy and zero crossing rate (ZCR) are used for extracting excitement clip.  A particular video frame is considered as an excitement frame if the product of its audio excitement and ZCR exceeds the threshold.
+
+\section{Observation from the survey}
+
+The system is proposed to work on extraction of highlights on cricket video. 
+The idea that replays contain all the highlights of the sports match will not work for all situations. In cricket, key events like milestones don\textquotesingle t have any replay, hence extracting the replays as highlights is not advisable. Replays are removed considering them as the repetitive  events. Logo transition and the gradual transition is applicable for replay detection and not for the advertisements. The replay and advertisements can be removed by checking the absence of scorecard.
+
+There is no particular method to eliminate unrelated events in the field like commentators, interviews. The boundary is segmented by using the event annotations which is comparatively preferred. 
+
+Detecting excitement using Speech to Text and tone analysis is not a good method as it will not work in the crowded ground. Excitement is detected by analyzing the audio by calculating the zero crossing rate is suitable method for cricket video.  Removing the non excitement clips (audio based) before without using the visual parameters will not work for sports like cricket. Bayesian networks are used for concept detection which is computationally expensive.
+
+Visual Marker Detection by detecting player\textquotesingle s expression is not suitable for cricket. Identifying the highlights based on umpire\'s decision is not possible in all situations. Event detection for all frames plays an important role in identifying the highlights.
+
+Key events in cricket can be detected by comparing the scores. This method is suitable for identifying the most of the highlight events.
+

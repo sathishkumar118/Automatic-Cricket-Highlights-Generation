@@ -1,0 +1,151 @@
+% Chapter 6
+
+\chapter{RESULTS AND DISCUSSION} % Write in your own chapter title
+
+\section{Results}
+The system is developed using python 3x. and keras. Big Bash League match videos are used to test the system. Day and Night matches are selected to test whether the system can support matches with variations in the contrast.
+\subsection{Evaluation}
+	The performance evaluation can be divided into two major categories, namely:
+\begin{enumerate}[I]
+    \item Objective evaluation
+    \item Subjective evaluation
+\end{enumerate}
+
+Objective evaluation criterion relies on metrics such as precision, recall, accuracy, false alarm rates, etc. to measure the performance of the system.Following are the some evaluation metrics:
+\begin{itemize}
+    \item \textbf {True Positive (TP):} It refers to the positive samples that are correctly labeled by the classifier.
+    \item \textbf {True Negative (TN):} It refers to the negative samples that are correctly labeled by the classifier.
+    \item \textbf {False Positive (FP):} It refers to the negative samples that are incorrectly labeled as positive by the classifier.
+    \item \textbf {False Negative (FN):} It refers to the positive samples that are incorrectly labeled as negative by the classifier.
+    \item \textbf {Precision Rate (PR):} It is a ratio of number of correctly labeled events (or frames), TP, to the total number of events detected.
+      \[ Precision= \frac{TP}{TP+FP}\]
+    \item \textbf {Recall Rate (RR):} It is a ratio of true detection rate with respect to the actual events (frames) in the video.
+      \[ Recall= \frac{TP}{TP+FN}\]
+    \item \textbf {Error Rate (ER): }It is a ratio of the miss labeled events (both false positives and false negatives) to the total number of events examined.
+    \[ Error Rate= \frac{FP+FN}{TP+TN+FP+FN}\]
+    \item \textbf {Accuracy Rate (AR):} It is a ratio of the correctly labeled events (both true positives and true negatives) to the total number of events.
+      \[ Accuracy= \frac{TP+TN}{TP+TN+FP+FN}\]
+\end{itemize}
+  %preprocessing
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{@{}cc|ccc@{}}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{3}{c}{Predicted} \\ 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c|}{} & 
+\multicolumn{1}{c}{Live Frames} & 
+\multicolumn{1}{c}{Replay/Ad Frames} & 
+\multicolumn{1}{c}{Accuracy} \\ 
+\cline{2-5}
+\multirow{}{}{\rotatebox[origin=tr]{90}{Actual}}
+& Live Frames  & 148 & 2 & 99   \\[1.5ex]
+& Replay/Ad Frames  & 0  & 60 & 100 \\ 
+\cline{2-5}
+\end{tabular}
+\end{center}
+\caption{Preprocessing}
+\label{tab:Preprocessing}
+\end{table}
+ 
+ 
+  %visual marker detection
+\begin{table}[ht]
+\begin{center}
+    \begin{tabular}{@{}cc|ccccccccc@{}}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{9}{c}{Predicted} \\ 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c|}{} & 
+\multicolumn{1}{c}{1} & 
+\multicolumn{1}{c}{2} & 
+\multicolumn{1}{c}{3} &
+\multicolumn{1}{c}{4} &
+\multicolumn{1}{c}{5} &
+\multicolumn{1}{c}{6} &
+\multicolumn{1}{c}{7} &
+\multicolumn{1}{c}{8} &
+\multicolumn{1}{c}{Accuracy} \\ 
+\cline{2-11}
+\multirow{8}{}{\rotatebox[origin=c]{90}{Actual}}
+& 1  & 45 & 0 & 0 & 9 & 0 & 0 & 0 & 6 & 83\\
+& 2  &  0  & 24  & 3 & 0 & 3 & 0 & 0 & 0 & 91\\ 
+& 3  & 0   & 6  & 18 & 0 & 3 & 3 & 0 & 0 & 88\\ 
+& 4  & 9  & 0  & 0 & 18 & 0 & 3 & 0 & 0 & 88\\ 
+& 5  & 0   & 0  & 6 & 0 & 21 & 3 & 0 & 0 & 87\\ 
+& 6  & 0   & 3  & 0 & 0 & 6 & 21 & 0 & 0 & 90\\ 
+& 7   & 0   & 6  & 18 & 0 & 3 & 3 & 0 & 0 & 88\\ 
+& 8  & 9  & 0  & 0 & 0 & 0 & 0 & 0 & 7 & 0\\ 
+
+\cline{2-11}
+\end{tabular}
+
+\end{center}
+\caption{Visual marker detection}
+\label{tab:visual marker detection}
+\end{table}
+
+  %shot boundary detection
+\begin{table}[ht]
+\begin{center}
+  \begin{tabular}{@{}cc|ccccccccc@{}}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{9}{c}{Predicted} \\ 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c|}{} & 
+\multicolumn{1}{c}{1} & 
+\multicolumn{1}{c}{2} & 
+\multicolumn{1}{c}{3} &
+\multicolumn{1}{c}{4} &
+\multicolumn{1}{c}{5} &
+\multicolumn{1}{c}{6} &
+\multicolumn{1}{c}{7} &
+\multicolumn{1}{c}{8} &
+\multicolumn{1}{c}{Accuracy} \\ 
+\cline{2-11}
+\multirow{8}{}{\rotatebox[origin=c]{90}{Actual}}
+& 1  & 100 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+& 2  & 10   & 8  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 3  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 4  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 5  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 6  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 7  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 8  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+\cline{2-11}
+\end{tabular}
+\end{center}
+\caption{Shot boundary detection}
+\label{tab:shot boundary detection}
+\end{table}
+
+%scorecard recognition
+\begin{table}[ht]
+\begin{center}
+  \begin{tabular}{@{}cc|ccccccccc@{}}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{9}{c}{Predicted} \\ 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c|}{} & 
+\multicolumn{1}{c}{1} & 
+\multicolumn{1}{c}{2} & 
+\multicolumn{1}{c}{3} &
+\multicolumn{1}{c}{4} &
+\multicolumn{1}{c}{5} &
+\multicolumn{1}{c}{6} &
+\multicolumn{1}{c}{7} &
+\multicolumn{1}{c}{8} &
+\multicolumn{1}{c}{Accuracy} \\ 
+\cline{2-11}
+\multirow{8}{}{\rotatebox[origin=c]{90}{Actual}}
+& 1  & 100 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+& 2  & 10   & 8  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 3  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 4  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 5  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 6  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 7  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+& 8  & 10   & 80  & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+\cline{2-11}
+\end{tabular}
+\end{center}
+\caption{Scorecard recognition}
+\label{tab:scorecard recognition}
+\end{table}
+

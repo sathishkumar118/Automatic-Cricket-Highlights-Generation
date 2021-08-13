@@ -1,0 +1,39 @@
+% Chapter 3
+
+\chapter{REQUIREMENTS ANALYSIS} % All Chapter Headings in ALL CAPS
+
+\section{Functional Requirements}
+The system outputs the highlights video for a given Cricket input video. The output video should adhere to the following requirements:
+• The output video should contain all the key events such as wickets, boundaries and other excitement events
+• The system must be able to detect the presence and absence of scorecard in the vide
+• The output video should not contain replays/ ad
+• The system must be optimized for time and space complexities
+• The system must be able to classify the input video and annotate with its events
+\section{Non Functional Requirements}
+\subsection{User Interface}
+There must be a simple and easy to use user interface.
+The intermediate results such as video classification, OCR results are printed in the CSV file for easy perception.
+The output video clips are concatenated and stored in a new output file by using movie editing tools.
+\subsection{Hardware}
+A system capable of running a python program with a minimum of 2GB RAM is required.
+\subsection{Software}
+• Operating System: Windows
+• Programming Language: Python
+• Tools: Opencv, Keras, Moviepy, Pytesseract.
+\subsection{Performance}
+The system must be optimized, reliable, consistent and available all
+the time.
+
+\section{CONSTRAINTS AND ASSUMPTIONS}
+\subsection{Constraints}
+•The system would work only for the BBL Cricket match videos.
+More than 2500 images are generated manually for CNN classification inorder to attain better results.
+•The output video will work effectively only when BBL cricket match video 
+•If the input video doesn't contain the key events as per the precoded criteria No output video will be generated.
+•The Accuracy of the system is calculated only by the analysis of confusion matrix.
+
+\subsection{Assumptions}
+• The Fours/Sixes, wickets and excitement shots are the only highlights
+• All the key events are detected only by analysing the scorecard and the audio.
+• OCR detects and recognizes all tha scorecards effectively
+• The Scorecard will display the exact score of that particular delivery without any errors.

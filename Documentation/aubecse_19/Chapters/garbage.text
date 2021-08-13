@@ -1,0 +1,59 @@
+\begin{tabular}{@{}cc|cc@{}}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Predicted} \\ 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c|}{} & 
+\multicolumn{1}{c}{Yes} & 
+\multicolumn{1}{c}{No} \\ 
+\cline{2-4}
+\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Actual}}
+& Yes  & 100 & 0   \\[1.5ex]
+& No  & 10   & 80 \\ 
+\cline{2-4}
+\end{tabular}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Related works paperwise
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+In \cite{8491305} this approach automatically extracts highlights from sports videos based on multimodal sport-independent excitement measures, including audio analysis from the spectators and the commentator, and visual analysis of the players. Based on that, the system for auto-curation of golf and tennis highlight packages, which was demonstrated in three major golf and tennis tournaments in 2017. This method fuses information from the player’s reactions (action recognition such as high-fives and fist pumps), player’s expressions (aggressive, tense, smiling and neutral), spectators (crowd cheering), commentator (tone of the voice and word analysis) and game analytics to determine the most interesting moments of a game. It also identifies the start and end frames of key shot highlights with the player’s name and the hole number using OCR. Excitement score is computed based on audio tone analysis and speech to text analysis. Player’s expression are considered as valuable because detecting neutral face helps rejecting false positives.
+
+In \cite{7479531} here the replays are detected and extracted to form highlights. A replay segment is considered as a clip sandwiched in gradual transitions and absence of score-caption. The proposed method is robust to broadcasters variation, sports category, score-caption design, camera variations, replay speed, and logo design, size, and placement. The proposed algorithm does not rely on logo template recognition for replay detection, which makes it computationally efficient. The proposed system consists of 2 steps ie gradual transition and scorecard detection. In gradual transition, candidate replay segment is done. The start and the end frame of gradual transition is detected and extracted. Scorecard detection is done by converting the videos into frames then into grayscale, converting them into binary image,finally given to OCR for score recognition. Effectiveness of the proposed method is evaluated on a diverse set of real world videos. Experimental results indicate that the proposed system achieves average detection accuracy rate \textgreater 94\%. It has been observed that under severe uneven illumination, performance of the proposed system degrades marginally.
+
+In \cite{7101847} BBN based framework is used for annotating the exciting clips with high-level semantic concept-labels. These annotated exciting clips are selected based on their importance degree for generating highlights for sports video sequences. Events are detected and classified using hierarchical tree. Concepts are collection of events. Some low events which are not important are removed from the concepts. Therefore the concept size is reduced. Automatic highlights for soccer video sequences and compared the performance with BBC highlights. The system is applicable to other types of sports videos with similar game structure such as basketball, volleyball, baseball, and cricket. There are other relevant low-level features such as camera motion, parallel line detection, caption detection which might provide complementary information and may help to improve performance of proposed approach by increasing number of events. The proposed framework  recognizes energizing clasps in light of sound components and after that arranges the individual scenes inside the clasp into occasions. A probabilistic Bayesian conviction arrange in view of watched occasions is utilized to appoint semantic idea marks to the energizing clasps in soccer video groupings. The named clasps are chosen by level of significance to incorporate into the highlights.
+
+In \cite{8575397} approach, the model considers both event-based and excitement-based features to recognize and clip important events in a cricket match. Replays, audio intensity, player celebration, and playﬁeld scenarios are examples of cues used to capture such events. The top four events are milestones, wickets, fours and sixes are recognized using event based approach. Replay are detected by CNN and SVM. Scorecard detection is done using OCR. By using detected scorecard, score is extracted. Playfield scenarios like batting, bowling, umpire, non striker are detected using CNN and SVM. Using loudness as audio feature key events like dropped catches are detected. The audio level intensity is used to detect the excitement in the video. Player celebration are considered as milestones and they are detected using SVM,CNN. The system is evaluated by comparing the generated highlights with the official highlights. The subjective evaluation or user study is also done.
+
+In \cite{1632043}this approach, the highlights is extracted  based on audio-motion integrated cues. The likelihood models measure the “likeliness” of low-level audio features and motion features to a set of predeﬁned audio types and motion categories, respectively. Our experiments show that using the proposed likelihood representation is more robust than using low-level audio/motion features to extract the highlight. With the proposed likelihood models, we then construct an integrated feature representation by symmetrically fusing the audio and motion likelihood models. Finally,we employ a hidden Markov model (HMM) to model and detect the transition of the integrated representation for highlight segments.
+
+In \cite{4756096}, The proposed conspire performs top down video occasion location and order utilizing various leveled tree which maintains a strategic distance from shot recognition and grouping. In the chain of command, at level-1, sound elements are utilized to concentrate energy cuts from the cricket video. At level-2, fervour clasps are characterized into continuous and replay fragments. At level-3, the fragments are apportioned into field see and non-field see in light of overwhelming grass shading proportion. At level-4a, field view is characterized into pitch-see, long-view, and limit see utilizing movement veil. At level-4b, non-field view is grouped into close-up and swarm utilizing edge thickness include. At level-5a, close-ups are characterized into batsman, bowler/defender. At level-5b, swarm section is grouped into onlooker and players' social event utilizing shading highlight.
+
+In \cite{canalysis} , it automatically generates highlights of game sequences so that selections of events can be located and played back. Excitements levels are gathered from the audio energy and short time zero crossing. Caption recognition is carried out using sum of absolute difference based caption recognition model. Method reduces manual processing, enables the generation of personalized highlight and also can be used for Content Based Video Retrieval. The approach seems effective and around 80-85\% accurate in practical tests. It is necessary to give complete set of characters of the channel and prior knowledge of the caption location is required. 
+	
+In \cite{6731340}, the algorithm uses textual information extraction method. This textual information is extracted from each frame by first detecting score bar, then converting the text on this score into a sentence like structure based on OCR. Once textual information is at our disposal, difference in score and wickets is detected to get information about 4, 6 or fall of a wicket. This forms the basis of event detection. Now those frames are included in which event has occurred and combined together to generate highlights.
+
+A generic method for sports video highlight selection is presented in \cite{Hasan2013}. Processing begins where the video is divided into short segments and several multi-modal features are extracted from each video segment. Excitability is computed based on the likelihood of the features lying in certain regions of their probability density functions that are exciting and rare. The proposed measure is used to rank order the partitioned segment stream to compress the overall video sequence and produce a contiguous set of highlights. The video is first segmented into small blocks for feature extraction. Several features (scalar parameters) are extracted from each segment that is modelled to be generally proportional to the excitement level of the given segment. The multimodal events/features used for excitability measure: (1) slow motion replay, (2) camera motion activity, (3) scene cut density, (4) commentators’ speech in high and (5) low excitement levels, and (6) audio energy.
+
+In \cite{Tjondronegoro:2003:SVS:973264.973296}, the sports summarization is done using highlights and play breaks. Combining the audio and visual features provides more accurate results. This method first detects the highlights using  whistle sound and excitement of the crowd and commentators and then text display is re checks whether it is a highlight. These annotations are evaluated manually. The highlights extracted using excitement is stored in the database (only the start and the end frames position are stored). The benefit of this method of integrating play- break and highlight scenes, combines the strengths of both the methods. Hierarchical structure is used to organize play, break and highlight scenes. Text detection is detecting the scorecard in the video of the match. Scorecard contains player name, score. For example goals in the soccer. Using excitement is a good measure to identify the highlights since the excitement in the crowd is sustained during goal celebration and commentators are also excited about the goal.  This is done for swimming and soccer. When whistle , excitement, and text detection used, 85\% to 100\% of the highlights can be detected. 
+	
+ The experimental results demonstrate the effectiveness of the proposed method. Experimental results also indicate the proposed method can reliably be applied to summarize the long-duration sports videos to broadcast over the low-bandwidth networks and transmission with time constraints.
+
+
+
+\section{Contributions} %All Sub Section headings in Title Case
+\begin{enumerate}
+    \item \textbf{Problem:} Given a cricket match video with advertisements and replays, These segments should be identified and removed.
+    
+    We propose a method that separates the video into advertisements or replays and live frames using scorecard detection.
+    
+    \item \textbf{Problem:} Given a cricket match video containing all activities that is important and boring video segments.
+    
+    We propose a method that detects and extracts only the key event segments and excited segments present in the input video.
+    
+    \item \textbf{Problem:} Given a cricket match video containing both the excitement and non excitement segments.
+    
+    We propose a method that detects only the excited part of video and segments them as highlights.
+    
+    \item \textbf{Problem:} Given a cricket match video, comparatively shorter highlights video should be generated.
+    
+    We propose a system that identifies the highlight segments and produces a concatenated output video corresponding to the input video.
+\end{enumerate}

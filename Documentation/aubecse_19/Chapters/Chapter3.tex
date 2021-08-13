@@ -1,0 +1,52 @@
+% Chapter 3
+
+\chapter{REQUIREMENTS ANALYSIS} % All Chapter Headings in ALL CAPS
+
+\section{Functional Requirements}
+The system outputs the highlights video for a given cricket video input. The output video should adhere to the following requirements:
+\begin{itemize}
+\item The output video should contain all the key event segments such as wickets, boundaries.
+\item he output video should contain all the video segments containing excitement.
+\item The system must be able to detect the presence and absence of scorecard in the input video.
+\item The output video should not contain replays/advertisements segments.
+\item The system must be able to classify the input video frames and annotate each frame with the event associated with it.
+\item The system must be optimized for the time and space complexities.
+\end{itemize}
+
+\section{Non Functional Requirements}
+\subsection{User Interface}
+There must be a simple and easy to use user interface.
+The intermediate results such as video classification, OCR results are printed in the CSV file for easy perception.
+The output video clips are concatenated and stored in a new output file by using movie editing tools.
+\subsection{Hardware}
+A system capable of running a python program with a minimum of 2GB RAM is required.
+\subsection{Software}
+\begin{itemize}
+\item Operating System: Windows
+\item Programming Language: Python
+\item Tools: Opencv, Keras, Moviepy, Pytesseract.
+\end{itemize}
+
+\subsection{Performance}
+The system must be optimized, reliable, consistent and available all
+the time.
+
+\section{Constraints and Assumptions}
+\subsection{Constraints}
+\begin{itemize}
+\item The system would work effectively only for the BBL Cricket match videos.
+\item More than 4000 images are captured manually for CNN classification in order to attain better results.
+\item The crucial events such as last over balls may not be detected by using the scorecard recognition and excitement.
+\item The match winning overs will have too much of excitement even for non key events and it is difficult to distinguish the ball segments with excitement.
+\item If the input video doesn't contain the key events as per the pre coded criteria, No output video will be generated.
+\item The Accuracy of the system is calculated only by the analysis of confusion matrix.
+\end{itemize}
+\subsection{Assumptions}
+\begin{itemize}
+    \item The fours, sixes, wickets and those shots containing commentators excitement and crowd cheers are the only highlights
+    \item The fours, sixes and wickets can be classified by using the scorecard alone
+    \item All the key events are detected only by analyzing the scorecard and the audio.
+    \item OCR detects and recognizes all the scorecards effectively
+    \item The Scorecard will display the exact score of that particular frame without any typos.
+\end{itemize}
+
