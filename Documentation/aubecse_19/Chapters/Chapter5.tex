@@ -1,0 +1,217 @@
+% Chapter 5
+
+\chapter{SYSTEM DEVELOPMENT} % Write in your own chapter title
+ The system removes advertisements, replays for preprocessing. The event in the live frames are detected using ensemble classifiers. Using event tags, shot boundaries are created. Highlights are created based on the scorecard and excitement. 
+ The overview of the entire system is given in the algorithm \ref{alg:overall}.
+\begin{algorithm}
+\label{alg:overall}
+\caption{Overall Algorithm of the system}
+\SetAlgoLined
+  \SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+  \SetKwData{input}{input}
+  \SetKwData{liveframes}{liveframes}
+  \SetKwData{event}{event}
+  \SetKwData{shot}{shot}
+  \SetKwData{highlights}{highlights}
+  \SetKwFunction{ReplayRemoval}{ReplayRemoval}
+   \SetKwFunction{CNNClassifier}{CNNClassifier}
+   \SetKwFunction{ShotDetector}{ShotDetector}
+    \SetKwFunction{HighlightsExtractor}{HighlightsExtractor}
+  \Input{A cricket match video}
+\Output{A highlights video}
+ \input $\leftarrow$ cricketmatch\\
+ \liveframes := \ReplayRemoval(\input)\\
+ \event[] := \CNNClassifier(\liveframes)\\
+ \shot[] := \ShotDetector(\event)\\
+ \highlights := \HighlightsExtractor(\shot[])
+\end{algorithm}
+\section{Prototypes of the modules}
+\begin{enumerate}
+    \item \textbf{Replay/Advertisement removal} Input video is checked for scorecard. Frames with scorecard is live frames and given as output.
+     \item \textbf{Visual Marker Detection} Live frames are given to CNN classifier for event tagging. Event tags are given as output.
+      \item \textbf{Shot boundary detection} With event tags, Shot boundary is detected and segmented. Shots are given as output.
+       \item \textbf{Extraction of highlights based on scorecard recognition} Scores in 2 consecutive shots are compared and highlights are identified.
+        \item \textbf{Aggregation of highlights} Both the highlights are combined to form final highlights.
+       \item \textbf{Extraction of highlights based on Excitement Detection} The video shots are analysed for the presence of Excitement and then classified as highlights.
+\end{enumerate}
+\section{Deployment Details}
+The deployment of the system requires opencv, tesseract, tensorflow and keras.Any python3.x can used to deploy the system successfully. Anaconda is preferred to deplay the system in case of windows.
+
+\section{Preprocessing}
+Algorithm \ref{alg:preprocessing} shows the algorithm of the preprocessing step that removes the replay and advertisements.
+\newline
+\begin{algorithm}[H]
+\caption{Preprocessing}
+\label{alg:preprocessing}
+\SetAlgoLined
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwFunction{generateFrames}{generateFrames}
+\SetKwFunction{grayscale}{grayscale}
+\SetKwFunction{binaryconversion}{binaryconversion}
+\SetKwFunction{OpticalCharacterRecognition}{OpticalCharacterRecognition}
+\SetKwData{image}{image}
+\SetKwData{text}{text}
+\SetKwData{frames}{frames}
+\Input{Source Input Video}\\
+\Output{Live Frames}\\
+\frames := \generateFrames(\texttt{Sourcevideo)}\\
+\For{each frame in frames[]}{
+\image := \grayscale(\frames)\\
+\image := \binaryconversion(\image)\\
+\text  := \OpticalCharacterRecognition(\image)\\
+\eIf{\var{is\_scorecard(text)}}{
+\var{mark\_as\_live(frame)\;}\\
+}{
+\var{mark\_as\_replay(frame)\;}\\
+}
+}
+\end{algorithm}
+
+\section{Visual marker detection}
+This module identifies the event in each frame which is shown in algorithm \ref{alg:vmd}.
+\begin{algorithm}
+\caption{Visual Marker Detection}
+\label{alg:vmd}
+\SetAlgoLined
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwData{model}{model}
+\SetKwData{eventtag}{eventtag}
+\SetKwData{time}{time}
+\SetKwData{frame}{frame}
+\SetKwFunction{loadtrainedClassifier}{loadtrainedClassifier}
+\SetKwFunction{fetchframetime}{fetchframetime}
+\SetKwFunction{AppendCSV}{AppendCSV}
+\Input{Live frames}\\
+\Output{Event tags with time}\\
+\model :=\loadtrainedClassifier()\\
+\For{each frame in frames[]}
+   { \eventtag :=\var{model.classify}(\frame)\\
+    \time := \fetchframetime(frame)\\
+    \AppendCSV(\eventtag,\time)\\
+}
+\end{algorithm}
+\section{Shot boundary detection}
+The shot boundary i.e from start of the ball to the commentators, interview, crowd umpire signal is detected and classified using the algorithm \ref{alg:shotbd}.
+\begin{algorithm}
+\caption{Shot Boundary Detection}
+\label{alg:shotbd}
+\SetAlgoLined
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwFunction{AppendCSV}{AppendCSV}
+\SetKwFunction{time}{time}
+\Input{Event tags}\\
+\Output{Segmented delivery labels}\\
+$i$ \leftarrow $1$\\
+\For{each event in events[]}
+   { 
+  \uIf{$is\_bowling(event)$}
+  {\var{start[i]} := \time(event)\\ \AppendCSV(\var{start}) \\}
+  \uElseIf{event in \(commentators,interview,crowd,umpiresignal\)}
+  {\var{end[i] := \time(event)}\\ \AppendCSV(\var{end)})\\
+  }
+  }
+\end{algorithm}
+
+\section{Extraction highlights based on Scorecard recognition}
+The scores of 2 consecutive shots is compared to identify the highlights. It is shown in the algorithm \ref{alg:srecog}.
+\begin{algorithm}
+\caption{Extraction highlights based on Scorecard recognition}
+\label{alg:srecog}
+\SetAlgoLined
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwFunction{isKeyEvent}{isKeyEvent}
+\SetKwFunction{time}{time}
+\Input {video frames of each segmented deliveries}\\
+\Output{delivery labels that contains the highlights}\\
+$i$ \leftarrow $1$\\
+\var{highlights[total\_deliveries]}\\
+\While{$i$ $<$ $total\_deliveries$}{
+\uIf{\var{get\_score(get\_frames(i)) - get\_score(get\_frames(i+1)) $>=$4}}
+          \var{  highlights[i]=1}\\
+\uElseIf{\var{get\_wicket(get\_frames(i)) - get\_wicket(get\_frames(i+1)) $>=$1}}
+          \var{  highlights[i]=1}\\
+\Else \var {highlights[i]=0}\\
+}
+\end{algorithm}
+
+\section{Extraction highlights based on Excitement Detection}
+The short time audio energy, normalised energy, $P_{audio}$ are computed for the whole video and then $\Psi(n)$ is computed. It is shown in the algorithm \ref{alg:excitement-1}.
+\begin{algorithm}
+\caption{Excitement Detection}
+\label{alg:excitement-1}
+\SetAlgoLined
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwFunction{isKeyEvent}{isKeyEvent}
+\SetKwFunction{time}{time}
+\Input {Audio of the input video and ball shot segments}\\
+\Output{$\Psi$}\\
+\For{each frame \var{n} in frames[]} {
+Compute audio energy \var{E(n)}\\
+\[E(n)= \frac{1}{V} \sum_{(n-1)V+1}^{nV}x(m)^2\]
+where \var{x(m)} is audio sample at  m and V is the number of audio samples corresponding to one video frame.
+}
+\For{each frame in frames[] \var{n}}{
+Compute average audio energy \var{AE(n)}\\
+\[AE(n)= \frac{1}{L} \sum_{i=0}^{L-1}E(n+L)\]
+where \var{ L }is the length of sliding window
+}
+\For{each frame in frames[] \var{n}}{
+Compute normalised audio energy \var{NE(n)}\\
+\[NE(n)= \frac{AE(n)}{max_{1\leq i\leq N} AE(i)} \]
+}
+\For{each frame in frames[] \var{n}}{
+\[
+    \Psi(n)= 
+\begin{cases}
+    1,& \text{if }\var{NE(n)}\geq\var{P_{audio}}\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+where $P_{audio}$ is the is mean of \var{NE(n)}
+}
+\end{algorithm}
+
+Using $\Psi$, the presence excitement in each video segments are detected and are given as input to the next module.  It is shown in the algorithm \ref{alg:excitement-2}.
+\begin{algorithm}
+\caption{Detecting the presence of excitement}
+\label{alg:excitement-2}
+\SetAlgoLined
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwFunction{isKeyEvent}{isKeyEvent}
+\SetKwFunction{time}{time}
+\Input {$\Psi$ and video shot segments}\\
+\Output{Highlight labels from excitement detection}\\
+\For{each shot in shots[] \var{m}}{
+\[Ex(m)= mean(\Psi(n)) \]
+}
+\\
+\For{each shot in shots[] \var{m}}{
+\[
+    IsHighlights(m)= 
+\begin{cases}
+    1,& \text{if }\var{Ex(m)}\geq\var{Thres}\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+where $Thres& :=mean(Ex)+variance(Ex)$ is the threshold value to detect the presence of excitement in each ball segment
+}
+\end{algorithm}
+
+\section{Aggregation}
+The two lists containing highlights labels are combined and the corresponding video shots are fetched and concatenated to generate final highlights video. It is shown in the algorithm \ref{alg:aggr}.
+\begin{algorithm}
+\caption{Aggregation of Highlights}
+\SetAlgoLined
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwFunction{FetchVideoFromDatabase}{FetchVideoFromDatabase}
+\SetKwFunction{ConcatenateVideo}{ConcatenateVideo}
+\Input{Highlight labels from scorecard recognition and excitement detection}
+\Output{Video shot segments with excitement}
+\label{alg:aggr}
+
+\var{Labels1[] }& := $HighlightLabels\_scorecard$\\
+\var{Labels2[]} & := $HighlightLabels\_excitement$ \\
+\var{Result[] }&:= Label1[]\text{ }\cup\text{ }Label2[]\\
+\var{ResultVideo[]} &:= FetchVideoFromDatabase(\var{Result[] })\\
+\var{FinalVideo }&:= $ConcatenateVideo(\var{ResultVideo[]})$\\
+\end{algorithm}

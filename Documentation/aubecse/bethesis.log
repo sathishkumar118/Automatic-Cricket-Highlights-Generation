@@ -1,0 +1,175 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdftex 2019.2.21)  21 FEB 2019 23:36
+entering extended mode
+**./bethesis.tex
+(bethesis.tex
+! Undefined control sequence.
+l.1 \documentclass
+                  [a4paper,oneside,14pt]{memoir}
+? 
+! Undefined control sequence.
+l.2 \usepackage
+               {aubecse}
+? 
+! Undefined control sequence.
+l.3 \usepackage
+               {verbatim}
+? 
+! Undefined control sequence.
+l.4 \usepackage
+               {booktabs}
+? 
+! Undefined control sequence.
+l.5 \usepackage
+               {multirow}
+? 
+! Undefined control sequence.
+l.6 \usepackage
+               {algorithm2e}
+? 
+! Undefined control sequence.
+l.7 \usepackage
+               {algorithmic}
+? 
+! Undefined control sequence.
+l.8 \usepackage
+               {listings}
+? 
+! Undefined control sequence.
+l.9 \usepackage
+               [noend]{algpseudocode}
+? 
+! Undefined control sequence.
+l.11 \settitle
+              {AUTOMATIC CRICKET HIGHLIGHTS EXTRACTION USING EVENT DRIVEN AN...
+
+? 
+! Undefined control sequence.
+l.12 \setnauthors
+                 {3}
+? 
+! Undefined control sequence.
+l.13 \setauthorone
+                  {Sathish Kumar S}{2015103530}
+? 
+! Undefined control sequence.
+l.14 \setauthortwo
+                  {Sivaranjani P}{2015103534}
+? 
+! Undefined control sequence.
+l.15 \setauthorthree
+                    {Belal R}{2015103007}
+? 
+! Undefined control sequence.
+l.16 \setguide
+              {Dr. P. Uma Maheswari}{Associate Professor}
+? 
+! Undefined control sequence.
+l.17 \bachelors
+                % Bachelors of Engineering
+? 
+! Undefined control sequence.
+l.18 \university
+                {Anna University}
+? 
+! Undefined control sequence.
+l.19 \setgraddate
+                 {May 2019}
+? 
+! Undefined control sequence.
+l.21 \begin
+           {document}
+? 
+! Undefined control sequence.
+l.22 \frontmatter
+                 
+? 
+! Undefined control sequence.
+l.23 \thetitlepage
+                  
+? 
+! Undefined control sequence.
+l.24 \aucertificate
+                   
+? 
+! Undefined control sequence.
+l.25 \auacknowledge
+                   
+? 
+! Undefined control sequence.
+l.26 \auabstract
+                
+? 
+! Undefined control sequence.
+l.27 \auabstracttamil
+                     
+? 
+! Undefined control sequence.
+l.30 \tableofcontents
+                     *
+? 
+! Undefined control sequence.
+l.31 \listoffigures
+                   
+? 
+! Undefined control sequence.
+l.32 \listoftables
+                  
+? 
+! Undefined control sequence.
+l.33 \listofacronyms
+                    {CDMA}
+? 
+! Undefined control sequence.
+l.35 \mainmatter
+                
+? 
+! Undefined control sequence.
+l.36 \pagestyle
+               {au}
+? 
+! Undefined control sequence.
+l.38 \auSpacing
+                 % 0.8 cm using \baselineskip
+? 
+! I can't find file `{./Chapters/Chapter1}'.
+l.41 \input{./Chapters/Chapter1} 
+                                 % Introduction
+Please type another input file name: 
+("C:\Users\sathi\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\.tex"
+File ignored)
+! I can't find file `{./Chapters/Chapter2}'.
+l.42 \input{./Chapters/Chapter2} 
+                                 % Literature Survey
+Please type another input file name: 
+("C:\Users\sathi\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\.tex"
+File ignored)
+! I can't find file `{./Chapters/Chapter3}'.
+l.43 \input{./Chapters/Chapter3} 
+                                 % Design
+Please type another input file name: 
+! I can't find file `'.
+l.43 \input{./Chapters/Chapter3} 
+                                 % Design
+Please type another input file name: 
+("C:\Users\sathi\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\.tex"
+File ignored)
+! I can't find file `{./Chapters/Chapter4}'.
+l.44 \input{./Chapters/Chapter4} 
+                                 % Implementation
+Please type another input file name: 
+("C:\Users\sathi\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\.tex"
+File ignored)
+! I can't find file `{./Chapters/Chapter5}'.
+l.45 \input{./Chapters/Chapter5} 
+                                 % Testing
+Please type another input file name: 
+! I can't find file `'.
+l.45 \input{./Chapters/Chapter5} 
+                                 % Testing
+Please type another input file name: 
+! Emergency stop.
+l.45 \input{./Chapters/Chapter5} 
+                                 % Testing
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!

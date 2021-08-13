@@ -1,0 +1,6 @@
+time,scorecard present,scorecard absent
+0s-1s,1,0
+2s-5s,0,1
+6s-27s,1,0
+28s,0,1
+29s-84s,1,0

@@ -1,0 +1,4 @@
+ball_number,start of the ball,end of the ball,type
+1,5,19,Boundary
+2,52,74,Wicket
+3,149,167,Wicket

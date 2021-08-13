@@ -1,0 +1,7 @@
+count,start of the ball,end of the ball,type
+1,1,17,Boundary
+2,17,33,Boundary
+3,33,50,Boundary
+4,50,68,Boundary
+5,68,89,Boundary
+6,89,108,Boundary

@@ -1,0 +1,12 @@
+\begin{tabular}{@{}cc|cc@{}}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Predicted} \\ 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c|}{} & 
+\multicolumn{1}{c}{Yes} & 
+\multicolumn{1}{c}{No} \\ 
+\cline{2-4}
+\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Actual}}
+& Yes  & 100 & 0   \\[1.5ex]
+& No  & 10   & 80 \\ 
+\cline{2-4}
+\end{tabular}

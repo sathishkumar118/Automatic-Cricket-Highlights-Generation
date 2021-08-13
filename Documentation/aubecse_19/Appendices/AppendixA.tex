@@ -1,0 +1,157 @@
+% Appendix A
+\chapter{Test cases for each module}
+This section provides the test cases for each of the modules in the system developed.
+\section{Preprocessing}
+\subsection{Test Pre-requisite}
+The standard cricket video with the necessity for highlights extraction is given as input.
+\subsection{Description}
+Detects the presence and absence of scorecard captions in each frame. Removes replay and advertisement frames from the input video and the remaining frames(live frames) are given to the next module for event classification. 
+\subsection{Test Cases}\\
+\begin{enumerate}
+\item \textbf{Input:} Video with advertisements or replays.\\
+\indent \textbf{Expected output:} Frames without advertisements and replays.\\
+
+\item \textbf{Input:} Video with only advertisements or replays.\\
+\indent \textbf{Expected output:} No live frames.\\
+
+\item \textbf{Input:} Video with only advertisements.\\
+\indent \textbf{Expected output:} No live frames.\\
+
+\item \textbf{Input:} Video with only replays.\\
+\indent \textbf{Expected output:} No live frames.\\
+
+\item \textbf{Input:} Video without any advertisements or replays.\\
+ \indent \textbf{Expected output:} All frames as live frames.\\
+\end{enumerate}
+
+
+\section{Visual Marker Detection}
+\subsection{Test Pre-requisite}
+All the live frames i.e frames without replays and advertisements from the given input video.
+\subsection{Description}
+Identifies the event present in each given live frames using the ensemble of CNN classifiers. The event tags are annotated with each of the frames appropriately and are given for shot boundary detection and segmentation.
+\subsection{Test Cases}
+\begin{enumerate}
+\item \textbf{Input: }Live video frames belonging to the defined classes. \\
+ \indent\textbf{Expected output: }List containing frames with its corresponding event tags.\\
+\item \textbf{Input: }Live video frames belonging to the undefined classes. \\
+ \indent\textbf{Expected output: }List containing frames which are annotated with the name $other$.\\
+\end{enumerate}
+
+\section{Shot Boundary Detection}
+\subsection{Test Pre-requisite}
+All the live frames annotated with the event present in that frame are taken as input.
+\subsection{Description}
+Every ball shot segment starts with the bowler bowling the ball and ends with the crowd view or boundary view or until the bowler starts bowling the next ball. Mostly all the shots starts from the start of one ball to start of the next ball.
+\subsection{Test Cases}
+\begin{enumerate}
+\item \textbf{Input:} List containing frames with bowling event tags.\\
+\indent\textbf{Expected output:} List containing the boundary times of all the ball shot segments i.e deliveries with its start and end time.
+\item \textbf{Input:} List containing frames without bowling event tags.\\
+\indent\textbf{Expected output:} The output indicating the absence of the ball video segments in the given input.
+\end{enumerate}
+
+\section{Extraction of Highlights based on Scorecard Recognition}
+\subsection{Test Pre-requisite}
+Start and end boundaries of all the ball shot segments are given. Start frame of the segment are needed for scorecard recognition.
+\subsection{Description}
+Scores of the 2 consecutive shots are compared to identify key events. The key event segment labels are appended to the final output list.
+\subsection{Test Cases}
+\begin{itemize}
+\item \textbf{Input:} Video containing the key events.\\
+ \indent\textbf{Expected output:} Key event segments should be detected accurately.
+\item \textbf{Input:} Video without containing the key events.\\
+ \indent\textbf{Expected output:} The output should convey the absence of key event segments in the input video.
+\end{itemize}
+\section{Extraction of Highlights based on Excitement Detection}
+\subsection{Test Pre-requisite}
+Audio of the input video and start and end boundaries of all the ball shot segments are taken
+\subsection{Description}
+The excitement counts present in each segment is calculated using the normalized audio energy present in each audio frame. By comparing the excitement counts of all the segments, The segments that contains most excitement are included in the final list which represents the shot segment number.
+\subsection{Test Cases}
+\begin{itemize}
+\item \textbf{Input:} Video containing the excited segments.\\
+\indent\textbf{Expected output:} Excited segments should be detected accurately.
+\item \textbf{Input:} Video without containing the excited segments.\\
+\indent\textbf{Expected output:} The output should convey the absence of excited segments in the input video.
+\end{itemize}
+\section{Aggregation of Highlights}
+\subsection{Test Pre-requisite}
+Two lists which represents the index of the video segments which are highlights by scorecoard recognition and excitement detection respectively.
+\subsection{Description}
+Corresponding video clips of all the highlighted segments are generated. All the generated clips are concatenated to form final highlights video.
+\subsection{Test Cases}
+\begin{itemize}
+\item \textbf{Input:} Video containing the key event segments or excited segments.\\
+\indent\textbf{Expected output:} Highlights segments should be generated accurately.
+\item \textbf{Input:} Video containing both key event segments or excited segments.\\
+\indent\textbf{Expected output:} Highlights segments should be generated containing both key events and excitement.
+\item \textbf{Input:} Video containing neither excited segments nor key event segments.\\
+\indent\textbf{Expected output:} The output should convey the absence of excited segments and key event segments in the input video.
+\end{itemize}
+
+\chapter{Cricket}
+Cricket is a bat-and-ball game played between two teams of eleven players on a field at the centre of which is a 20-metre (22-yard) pitch with a wicket at each end, each comprising two bails balanced on three stumps. Cricket is played with two teams (say A and B) normally of 11 players a side, one being the batting team while the other one is the fielding team. It is generally played on field with the main playing surface being called a ‘pitch’. (For details and dimensions of the pitch, wickets and creases, click the tab 'Playing Surface' on the right).
+
+Team A will bat first and try to score as many runs as possible while the second team, team B, will bowl and field to make it as hard as possible for the batting team (A) to score these runs and to get them ‘out’ . Once team A are all out or otherwise their batting is determined closed as per the laws, the teams then swap over. So team B will bat to try and beat the score (number of runs scored) set by team A. Team A will bowl and field and try and restrict Team B from beating their score / getting them ‘all out’ before they do.
+
+Cricket is a game for all - adults, young people, children, men and women, girls and boys. They play cricket all over the world - on the street, on the beach, in the local park, wherever they can find a place to play. Above all they have fun doing so!
+
+\section{Main aspects of playing the game}
+Thus, broadly summarized, there are 6 key elements of cricket:
+batting, bowling, fielding, catching, wicket keeping, scoring runs each player and the appropriate camera view is selected during the broadcast.The camera change will play a major role in the cricket video broadcasting since each camera focuses on each player doing different activity.
+\section{Formats of Cricket}
+There are various formats ranging from Twenty20, played over a few hours with each team batting for a single innings of 20 overs, to Test matches, played over five days with unlimited overs and the teams each batting for two innings of unlimited length. Traditionally cricketers play in all-white kit, but in limited overs cricket they wear club or team colours. In addition to the basic kit, some players wear protective gear to prevent injury caused by the ball, which is a hard, solid spheroid made of compressed leather with a slightly raised sewn seam enclosing a cork core which is layered with tightly wound string.
+\chapter{Video Summarization}
+There have been tremendous needs of video processing applications to deal with abundantly available &
+accessible videos. One of the research areas of interest is Video Summarization that aims creating summary of video to
+enable a quick browsing of a collection of large video database. It is also useful for allied video processing applications
+like video indexing, retrieval etc. Video Summarization is a process of creating & presenting a meaningful abstract
+view of entire video within a short period of time. Mainly two types of video summarization techniques are available in
+the literature, viz. key frame based and video skimming. For key frame based video summarization, selection of key
+frames plays important role for effective, meaningful and efficient summarizing process.
+novel variant of video summarization, namely building a summary that depends on the
+particular aspect of a video the viewer focuses on. We refer to this as viewpoint. To infer what the desired viewpoint
+may be, we assume that several other videos are available,
+especially groups of videos, e.g., as folders on a person’s
+phone or laptop. The semantic similarity between videos
+in a group vs. the dissimilarity between groups is used
+to produce viewpoint-specific summaries. For considering
+similarity as well as avoiding redundancy, output summary
+should be (A) diverse, (B) representative of videos in the
+same group, and (C) discriminative against videos in the
+different groups. To satisfy these requirements (A)-(C) simultaneously, we proposed a novel video summarization
+method from multiple groups of videos. Inspired by Fisher’s
+discriminant criteria, it selects summary by optimizing the
+combination of three terms (a) inner-summary, (b) innergroup, and (c) between-group variances defined on the feature representation of summary, which can simply represent
+(A)-(C). Moreover, we developed a novel dataset to investigate how well the generated summary reflects the underlying viewpoint. Quantitative and qualitative experiments
+conducted on the dataset.
+As the name implies, video summarization is a mechanism for generating a short summary of a video, which can
+either be a sequence of stationary images (key frames) or moving images (video skims). Video can be summarized
+by two different ways which are as follows.
+\section{Key Frame Based Video Summarization}
+These are also called representative frames, R-frames, still-image abstracts or static storyboard, and a set consists of
+a collection of salient images extracted from the underlying video source [2]. Following are some of the challenges that
+should be taken care while implementing Key frame based algorithm
+1. Redundancy: frames with minor difference are selected as key frame.
+2. When there are various changes in content it is difficult to make clustering.
+\section{Video Skim Based Video Summarization}
+This is also called a moving-image abstract, moving story board, or summary sequence [2]. The original video is
+segmented into various parts which is a video clip with shorter duration. Each segment is joined by either a cut or a
+gradual effect. The trailer of movie is the best example for video skimming.
+
+\chapter{Big Bash League}
+The Big Bash League (BBL) is an Australian professional Twenty20 cricket league, which was established in 2011 by Cricket Australia. The Big Bash League replaced the previous competition, the KFC Twenty20 Big Bash, and features eight city-based franchises instead of the six state teams which had participated previously. The competition has been sponsored by fast food chicken outlet KFC since its inception. It is one of the two T20 cricket, alongside the Indian Premier League, to feature among the Top 10 Most Attended Sport Leagues in the world.
+BBL matches are played in Australia during the southern hemisphere summer, in the months of December, January and February.
+\section{Tournament format}
+Ben Cutting of Brisbane Heat batting against Melbourne Stars in 2014
+Since the inception of the BBL in 2011, the tournament has followed the same format every year except the inaugural season.[23] The first BBL season had 28 group stage matches, before expanding to 32 in the following season.
+Since the 2018–19 season, each team plays all other teams twice during a season, for a total of 56 regular season matches before the finals series..
+
+In previous seasons of the tournament, the group stage matches were divided into eight rounds, with four matches played in each round. Each team played six other teams once during a season, and one team twice. This allowed for both Sydney and Melbourne (which have two teams each) to play 2 derbies within a single season.Each team played eight group stage matches, four at home and four away, before the top four ranked teams progressed to the semi finals.In the 2017/18 Season) the format changed so that there would be 40 group stage matches with each team playing 10 matches before the semi finals.The season was held over a similar time-frame thus resulting in more doubleheaders (one game afternoon, one game night) and teams playing more regularly.
+
+The final of the tournament is played at the home ground of the highest-ranked team. The only exception to this rule was 2014–15 season when the final was played at a neutral venue (Manuka Oval), due to the 2015 Cricket World Cup.
+
+In the 2018–19 season, the league introduced a 'bat flip' (instead of a coin toss) to decide who would bat/bowl first.
+\section{Current Teams}
+The competition features eight city-based franchises, instead of the six state-based teams which had previously competed in the KFC Twenty20 Big Bash. Each state's capital city features one team, with Sydney and Melbourne featuring two. The team names and colours for all teams were officially announced on 6 April 2011.The Melbourne Derby and Sydney Derby matches are some of the most heavily attended matches during the league and are widely anticipated by the fans.The Scorchers and Sixers have also developed a rivalry between them over the years and their matches attract good crowds and TV ratings
